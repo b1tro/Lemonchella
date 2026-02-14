@@ -31,13 +31,14 @@ OKLINK_API_KEY: str = env.str('OKLINK_API_KEY')
 EVM_WALLET_ADDRESS: str = env.str('EVM_WALLET_ADDRESS')
 TRON_WALLET_ADDRESS: str = env.str('TRON_WALLET_ADDRESS')
 
+GOOGLE_SHEETS_ENABLED: bool = env.bool('GOOGLE_SHEETS_ENABLED', default=True)
 GOOGLE_SERVICE_KEY_PATH: str = env.str('GOOGLE_SERVICE_KEY_PATH', default='./key.json')
-GOOGLE_SHEET_URL: str = env.str('GOOGLE_SHEET_URL')
+GOOGLE_SHEET_URL: str = env.str('GOOGLE_SHEET_URL', default='')
 MAX_PRODUCT_QUANTITY: int = env.int('MAX_PRODUCT_QUANTITY', default=10000)
 PAYMENT_MINUTES_TIMEOUT: int = env.int('PAYMENT_MINUTES_TIMEOUT', default=15)
 DEFAULT_UNDEFINED_LINK: str = env.str('DEFAULT_UNDEFINED_LINK', default='https://httpstat.us/404')
 DUPLICATE_SPREADSHEET_URL: str = env.str('DUBLICATE_SPREADSHEET_URL',
                                          default='https://docs.google.com/spreadsheets/d/1cU8tjHBnT5T1QKSAjMritptPpskJ2PSdB2nxvwpV9z0/edit')
 
-SUMMARY_SHEET_URL: str = env.str('SUMMARY_SHEET_URL')
-SPECIAL_SHEET_URL: str = env.str('SPECIAL_SHEET_URL')
+SUMMARY_SHEET_URL: str = env.str('SUMMARY_SHEET_URL', default='')
+SPECIAL_SHEET_URL: str = env.str('SPECIAL_SHEET_URL', default='')
