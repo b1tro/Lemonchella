@@ -44,7 +44,7 @@ from telethon.tl.functions.folders import EditPeerFoldersRequest
 from telethon.tl.types import InputFolderPeer
 from models import User, Product, Category, UserCache, HotConfig, Order, Addon, AddonCustomer, Customer
 from config import USER_CACHE_TIME, ACTIVE_PRODUCTS_DIR, ARCHIVED_PRODUCTS_DIR, GOOGLE_SERVICE_KEY_PATH, \
-    GOOGLE_SHEET_URL
+    GOOGLE_SHEET_URL, GOOGLE_SHEETS_ENABLED
 from models.order import OrderItem
 from redis.asyncio import Redis
 from models.payment import BalancePayment, CryptoTransaction
@@ -60,7 +60,7 @@ crypto_core = CryptoCore(
 )
 sheets = GoogleSheets(
     service_key_path=str(GOOGLE_SERVICE_KEY_PATH)
-)
+) if GOOGLE_SHEETS_ENABLED else None
 redis = Redis(
     host=REDIS_HOST,
     port=REDIS_PORT,
@@ -601,27 +601,29 @@ async def new_order(
         telegram_chat_link, telegram_chat_id, telegram_chat_link_manager, telegram_chat_id_manager = await create_telegram_chat(
             order=order)
         order.telegram_chat_link, order.telegram_chat_id, order.telegram_chat_link_manager, order.telegram_chat_id_manager = telegram_chat_link, telegram_chat_id, telegram_chat_link_manager, telegram_chat_id_manager
-    tries = 0
-    while tries < 3:
-        try:
-            order_spreadsheet_url = sheets.create_order_table(order, user_username)
-            order.order_sheet_url = order_spreadsheet_url
-            break
-        except Exception as error:
-            logger.error(f'Error while creating order #{order.id} spreadsheet: {error}')
-            await asleep(2)
-            tries += 1
+    if GOOGLE_SHEETS_ENABLED:
+        tries = 0
+        while tries < 3:
+            try:
+                order_spreadsheet_url = sheets.create_order_table(order, user_username)
+                order.order_sheet_url = order_spreadsheet_url
+                break
+            except Exception as error:
+                logger.error(f'Error while creating order #{order.id} spreadsheet: {error}')
+                await asleep(2)
+                tries += 1
     if order.balance_payment:
         await charge_balance_payment(balance_payment)
         order.balance_payment.status = 'Success'
         order.balance_payment.received_at = datetime.datetime.now(datetime.timezone.utc)
     await Order.insert_one(order)
     product = await get_product(order.order_items[0].product_id)
-    try:
-        sheets.add_order(GOOGLE_SHEET_URL, order, user_username, product_name=product.name)
-        order.added_to_sheet = True
-    except Exception as error:
-        logger.error(f'Error while adding order to google sheet: {error}')
+    if GOOGLE_SHEETS_ENABLED:
+        try:
+            sheets.add_order(GOOGLE_SHEET_URL, order, user_username, product_name=product.name)
+            order.added_to_sheet = True
+        except Exception as error:
+            logger.error(f'Error while adding order to google sheet: {error}')
     return order
 
 
@@ -704,6 +706,9 @@ async def get_order_by_managers_link(telegram_chat_id_manager: int, ignore_cache
 
 
 async def update_google_sheets(order: Order):
+    if not GOOGLE_SHEETS_ENABLED:
+        return
+
     hotconfig = await get_hotconfig(ignore_cache=True)
 
     gid = hotconfig.SHEET_GID if not order.is_special else hotconfig.SHEET_GID_SPECIAL

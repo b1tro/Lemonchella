@@ -79,7 +79,7 @@ class texts:
 {addons}
 <b>Дедлайн заказа:</b> {order.deadline}
 
-<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
 
             return text
 
@@ -124,7 +124,7 @@ class texts:
 {addons}
 <b>Дедлайн заказа:</b> {order.deadline}
 
-<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
             return text
 
         def special_order_summary(order: Order):
@@ -150,7 +150,7 @@ class texts:
 {addons}
 <b>Дедлайн заказа:</b> {order.deadline}
 
-<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
             return text
 
         def withdraw_wallet(wallet: str):
@@ -181,7 +181,7 @@ class texts:
 {addons}
 <b>Дедлайн заказа:</b> {order.deadline}
 
-<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
 
             return text
 
@@ -248,7 +248,7 @@ class texts:
 {addons}
 <b>Дедлайн заказа:</b> {order.deadline}
 
-<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Ссылка на google sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
             return text
 
     class en:
@@ -314,7 +314,7 @@ class texts:
 {addons}
 <b>Order deadline:</b> {order.deadline}
 
-<b>📗 Link on google sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Link on google sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
             return text
 
         def special_order_summary(order: Order):
@@ -340,7 +340,7 @@ class texts:
 {addons}
 <b>Order deadline:</b> {order.deadline}
 
-<b>📗 Google sheets link:</b> {order.order_sheet_url}"""
+{f'<b>📗 Google sheets link:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
             return text
 
         def withdraw_wallet(wallet: str):
@@ -372,7 +372,7 @@ class texts:
 {addons}
 <b>Order deadline:</b> {order.deadline}
 
-<b>📗 Link on google sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Link on google sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
 
             return text
 
@@ -450,7 +450,7 @@ class texts:
 {addons}
 <b>Дедлайн замовлення:</b> {order.deadline}
 
-<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
 
             return text
 
@@ -490,7 +490,7 @@ class texts:
 {addons}
 <b>Дедлайн замовлення:</b> {order.deadline}
 
-<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
 
             return text
 
@@ -515,7 +515,7 @@ class texts:
 {addons}
 <b>Дедлайн замовлення:</b> {order.deadline}
 
-<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
 
             return text
 
@@ -585,7 +585,7 @@ class texts:
 {addons}
 <b>Дедлайн замовлення:</b> {order.deadline}
 
-<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}"""
+{f'<b>📗 Посилання на Google Sheets:</b> {order.order_sheet_url}' if order.order_sheet_url else ''}"""
 
             return text
 
