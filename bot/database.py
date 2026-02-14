@@ -6,7 +6,10 @@ import certifi
 
 
 async def init():
-    client = AsyncIOMotorClient(MONGODB_URI, tlscafile=certifi.where())
+    kwargs = {}
+    if MONGODB_URI.startswith('mongodb+srv://') or 'tls=true' in MONGODB_URI.lower():
+        kwargs['tlscafile'] = certifi.where()
+    client = AsyncIOMotorClient(MONGODB_URI, **kwargs)
     database = client.get_database()
     # Initialize beanie with the Sample document class and a database
     await init_beanie(
