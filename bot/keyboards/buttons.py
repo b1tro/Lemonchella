@@ -64,7 +64,8 @@ class buttons:
 
         class SpecialOrders(InlineButton):
             def __init__(self, current_state: bool):
-                super().__init__(text=f'Получать особенные заказы? ({'Да' if current_state else 'Нет'})',
+                state_text = "Да" if current_state else "Нет"
+                super().__init__(text=f'Получать особенные заказы? ({state_text})',
                                  callback_data=f'{callbacks.SPECIAL_ORDERS}')
 
         class ApproveOrderClaim(InlineButton):
@@ -92,7 +93,8 @@ class buttons:
 
         class WithdrawWallet(InlineButton):
             def __init__(self, is_set: bool):
-                super().__init__(text=f'Кошелек ({'Выставлен' if is_set else 'Не выставлен'})',
+                wallet_text = "Выставлен" if is_set else "Не выставлен"
+                super().__init__(text=f'Кошелек ({wallet_text})',
                                  callback_data=callbacks.WITHDRAW_WALLET)
 
         class RemoveSelfOrder(InlineButton):
@@ -157,7 +159,8 @@ class buttons:
 
         class SpecialOrders(InlineButton):
             def __init__(self, current_state: bool):
-                super().__init__(text=f'Receive special orders? ({'Yes' if current_state else 'No'})',
+                state_text = "Yes" if current_state else "No"
+                super().__init__(text=f'Receive special orders? ({state_text})',
                                  callback_data=f'{callbacks.SPECIAL_ORDERS}')
 
         class ApproveOrderClaim(InlineButton):
@@ -191,7 +194,8 @@ class buttons:
 
         class WithdrawWallet(InlineButton):
             def __init__(self, is_set: bool):
-                super().__init__(text=f'Wallet ({'Filled' if is_set else 'Unfilled'})',
+                wallet_text = "Filled" if is_set else "Unfilled"
+                super().__init__(text=f'Wallet ({wallet_text})',
                                  callback_data=callbacks.WITHDRAW_WALLET)
 
         MyOrders = InlineButton(text='My orders', callback_data=callbacks.MY_ORDERS)
